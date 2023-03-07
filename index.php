@@ -13,16 +13,26 @@ if (isset($_POST['btn-register'])) {
     $confirm_password = $_POST['confirm_password'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
-    if ($password == $confirm_password) {
-        if (registerUser($fullname,$username, $password, $email, $phone)) {
-            $_SESSION['username'] = $username;
-            header("Location: index.php");
-            exit();
-        } else {
-            $registration_error = "Registration failed. Please try again.";
-        }
+    
+    // Check if the username already exists in the database
+    $check_sql = "SELECT ojt_teachers_username FROM ojt_teachers WHERE ojt_teachers_username = '$username'";
+    $check_result = mysqli_query($conn, $check_sql);
+    if (mysqli_num_rows($check_result) > 0) {
+        $registration_error = "Username already exists. Please choose a different one.";
     } else {
-        $registration_error = "Passwords do not match. Please try again.";
+        if ($password == $confirm_password) {
+            if (registerUser($fullname,$username, $password, $email, $phone)) {
+                $_SESSION['ojt_teacher_id'] = $ojt_teacher_id; // set the ojt_teacher_id as a session variable
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit();
+            } else {
+                $registration_error = "Registration failed. Please try again.";
+            }
+        } else {
+            $registration_error = "Passwords do not match. Please try again.";
+        }
+
     }
 }
 if (isset($_POST['btn-login'])) {
@@ -36,8 +46,11 @@ if (isset($_POST['btn-login'])) {
         $login_error = "Invalid username or password. Please try again.";
     }
     }
+
+
 ?>
 <!DOCTYPE html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -61,6 +74,7 @@ if (isset($_POST['btn-login'])) {
     <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
 <body>
     <!-- Navigations -->
     <nav class="navbar navbar-expand-lg ">
@@ -89,7 +103,8 @@ if (isset($_POST['btn-login'])) {
         <div class="container content-wrapper loginpage-sec">
             <div class="row" id="login-section">
                 <div class="col-xs-12 col-sm-8 col-md-8" id="left-content">
-                    <h1><span class="heading-highlight">OJTabulate </span><br>Internship Management <br>Strategies for Success</h1>
+                    <h1><span class="heading-highlight">OJTabulate </span><br>Internship Management <br>Strategies for
+                        Success</h1>
                     <h3>You are on your way to becoming excellent educators and mentors for the next generation. As you
                         embark on this journey, we wish you all the best and hope that you gain valuable insights,
                         knowledge, and experience that will help you in your future careers.</h3>
@@ -105,7 +120,6 @@ if (isset($_POST['btn-login'])) {
                         <form action="" method="post">
                             <div class="form-inner-container">
                                 <input type="text" placeholder="Username" name="username" required>
-
                                 <input type="password" placeholder="Password" name="password" required>
                                 <button type="submit" name="btn-login">SIGN IN</button>
 
@@ -131,9 +145,10 @@ if (isset($_POST['btn-login'])) {
     <!--end of content wrapper-->
     </div>
     <!--end of main wrapper-->
+
     <!-- Registraion Page -->
-    <!-- The Modal -->
-    <div class="modal fade" id="register">
+        <!-- The Modal -->
+        <div class="modal fade" id="register">
         <div class="modal-dialog">
             <div class="modal-content">
                 <!-- Modal Header -->
@@ -147,7 +162,11 @@ if (isset($_POST['btn-login'])) {
                         <div class="container">
                             <p>Please fill in this form to create an account.</p>
                             <input type="text" placeholder="Enter Name" name="name" id="name" required>
-                            <input type="text" placeholder="Enter User Name" name="username" id="username" required>
+                            <!-- <input type="text" placeholder="Enter User Name" name="username" id="username" required> -->
+                            <input type="text" placeholder="Enter User Name" name="username"value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" required>
+                            <?php if (!empty($registration_error) && strpos($registration_error, 'Username already exists') !== false): ?>
+                            <p class="error-message"><?php echo $registration_error; ?></p>
+                            <?php endif; ?>
                             <input type="text" placeholder="Enter Email" name="email" id="email" required>
                             <input type="text" placeholder="Enter Phone" name="phone" id="phone" required>
                             <input type="password" placeholder="Enter Password" name="password" id="psw" required>
@@ -157,11 +176,6 @@ if (isset($_POST['btn-login'])) {
                             </p>
                             <button type="submit" value="Register" class="btn-registerbtn"
                                 name="btn-register">Register</button>
-                            <!-- error checking -->
-                            <?php if (isset($registration_error)) { ?>
-                            <p class="error-message"><?php echo $registration_error; ?></p>
-                            <?php } ?>
-                            <!-- END - error checking -->
                         </div>
                     </form>
                 </div>
@@ -223,6 +237,7 @@ if (isset($_POST['btn-login'])) {
             </div>
         </div>
     </footer>
+    <!-- Script to disable modal close when someone clicks outside the modal -->
 </body>
 
 </html>
