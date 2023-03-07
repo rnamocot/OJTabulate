@@ -1,0 +1,84 @@
+@import url(https://fonts.googleapis.com/css?family=Inter);
+
+body {
+    line-height: 1.5em;
+    font-family: 'Inter', sans-serif;
+}
+
+h2 {
+    font-family: 'Inter', sans-serif;
+}
+
+.employe-reg-div {
+    padding: 100px;
+    background: #F7F7F7;
+}
+
+.employee-form {
+    color: #212529;
+    padding: 40px 30px;
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    -webkit-box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    -moz-box-shadow: 0 2px 4px rgb(0 0 0 / 10%), 0 8px 16px rgb(0 0 0 / 10%);
+    border-radius: 30px;
+}
+
+.employee-form form {
+    padding: 50px;
+}
+
+.employee-heading {
+    text-align: center;
+}
+
+.employee-heading h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700!important;
+    font-size: 30px!important;
+    line-height: 1.2em;
+    color: #212529;
+    padding-bottom: 30px;
+}
+
+.employee-form input {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 10px 0;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    border-top: 0px solid #212529;
+    border-bottom: 1px solid #b7bbbf;
+    border-right: none;
+    border-left: none;
+}
+
+.btn-employee-reg {
+    letter-spacing: 1px;
+    background: #0D6EFD;
+    color: #fff;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 50px;
+    text-transform: uppercase;
+    font-family: 'Inter', sans-serif;
+}
+.employee-img-div{
+    padding: 30px;
+}
+.employee-img{
+    width: 400px;
+    height: auto;
+}
+.form-message {
+    text-align: center;
+    color: #5f9f75;
+}
+.btn-go-home{
+    text-align: center;
+}
+#teacher-id-reg{
+    display: none;
+}
