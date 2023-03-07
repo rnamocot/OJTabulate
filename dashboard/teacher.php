@@ -152,7 +152,7 @@
                        echo '});';
                        echo '</script>';
                      }
-                     generateQRCodeLink('http://localhost/ojtabulate/OJTabulate/employee-registration.php',$user_id);
+                     generateQRCodeLink('https://ojtabulate.com/employee-registration.php',$user_id);
                      ?>
                 </div>
             </section>
