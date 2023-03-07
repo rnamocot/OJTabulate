@@ -1,4 +1,5 @@
 <?php
+
 function connectionDBlocal(){  
     $host="localhost";
     $username="u254141837_chappie";
@@ -11,8 +12,9 @@ function connectionDBlocal(){
         return $con;
     }
 } 
-/*
-function connectionDBlocal(){  
+
+
+function connectionDBlocalnew(){  
 $host="localhost";
 $username="root";
 $password="";
@@ -24,5 +26,5 @@ if($con->connect_error){
      return $con;
  }
 } 
-*/
+
 ?>
