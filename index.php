@@ -7,15 +7,16 @@ if (isset($_SESSION['username'])) {
     exit();
 }
 if (isset($_POST['btn-register'])) {
+    $fullname = $_POST['name'];
     $username = $_POST['username'];
     $password = $_POST['password'];
     $confirm_password = $_POST['confirm_password'];
     $email = $_POST['email'];
     $phone = $_POST['phone'];
     if ($password == $confirm_password) {
-        if (registerUser($username, $password, $email, $phone)) {
+        if (registerUser($fullname,$username, $password, $email, $phone)) {
             $_SESSION['username'] = $username;
-            header("Location: ./dashboard/teacher.php");
+            header("Location: index.php");
             exit();
         } else {
             $registration_error = "Registration failed. Please try again.";
@@ -148,6 +149,7 @@ if (isset($_POST['btn-login'])) {
                             <input type="text" placeholder="Enter Name" name="name" id="name" required>
                             <input type="text" placeholder="Enter User Name" name="username" id="username" required>
                             <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                            <input type="text" placeholder="Enter Phone" name="phone" id="phone" required>
                             <input type="password" placeholder="Enter Password" name="password" id="psw" required>
                             <input type="password" placeholder="Confirm Password" name="confirm_password"
                                 id="psw-repeat" required>

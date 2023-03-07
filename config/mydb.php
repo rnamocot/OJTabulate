@@ -15,7 +15,7 @@ function connectionDBlocal(){
 $host="localhost";
 $username="root";
 $password="";
-$database="ojt_management_system";
+$database="ojt_management_system_db";
 $con =new mysqli($host, $username,$password, $database );
 if($con->connect_error){
     echo $con->connect_error;
@@ -23,3 +23,4 @@ if($con->connect_error){
      return $con;
  }
 } 
+?>
