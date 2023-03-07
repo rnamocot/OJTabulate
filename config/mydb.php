@@ -1,9 +1,9 @@
 <?php
-function connectionDBlive(){  
+function connectionDBlocal(){  
     $host="localhost";
-    $username="u992206180_chappie";
+    $username="u254141837_chappie";
     $password="Tarsierjojo123!";
-    $database="u992206180_internships";
+    $database="u254141837_ojtabulate";
     $con =new mysqli($host, $username,$password, $database );
     if($con->connect_error){
        echo $con->connect_error;
@@ -11,6 +11,7 @@ function connectionDBlive(){
         return $con;
     }
 } 
+/*
 function connectionDBlocal(){  
 $host="localhost";
 $username="root";
@@ -23,4 +24,5 @@ if($con->connect_error){
      return $con;
  }
 } 
+*/
 ?>

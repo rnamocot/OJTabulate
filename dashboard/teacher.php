@@ -8,7 +8,6 @@
    require_once ('../includes/dashboard_queries.php');
    $user_id=getUserid($username);
    $teacher_row=getTeacherprofile($user_id);
-
    ?>
 <!DOCTYPE html>
 <html>
@@ -86,11 +85,11 @@
     <div class="main-db-right db-right-content">
         <div class="db-right-header">
             <section id="profile">
-                <h1>My Information details</h1>
-                <p>Name: <?php echo $teacher_row['ojt_full_name']; ?></p>
-                <p>Username: <?php echo $teacher_row['ojt_teachers_username']; ?></p>
-                <p>Email: <?php echo $teacher_row['ojt_teachers_email']; ?></p>
-                <p>Phone: <?php echo $teacher_row['ojt_teachers_phone']; ?> </p>
+                <h1>My Information details</h1> <br>
+                <h4>Name: <?php echo $teacher_row['ojt_full_name']; ?></h4> <br>
+                <h4>Username: <?php echo $teacher_row['ojt_teachers_username']; ?></h4> <br>
+                <h4>Email: <?php echo $teacher_row['ojt_teachers_email']; ?></h4> <br>
+                <h4>Phone: <?php echo $teacher_row['ojt_teachers_phone']; ?> </h4> <br>
             </section>
             <!-- employer section -->
             <section id="student-employer">
@@ -141,7 +140,7 @@
                        echo 'var canvas = document.querySelector("canvas");';
                        echo 'saveBtn.addEventListener("click", function() {';
                        echo 'var dataUrl = canvas.toDataURL();';
-                       echo 'var filename = "' . basename($url) . '.png";';
+                       echo 'var filename = "QR Code.png";';
                        echo 'saveBtn.innerHTML = "Downloading...";';
                        echo 'saveBtn.disabled = true;';
                        echo 'var link = document.createElement("a");';
