@@ -16,8 +16,8 @@ function changebtn() {
 
 function showContent(content) {
   // Hide the default content
-//  const defaultContent = document.querySelector('#default-content');
-//   defaultContent.style.display = 'none';
+ const defaultContent = document.querySelector('#default-content');
+  defaultContent.style.display = 'none';
 
   // Hide all sections
   const sections = document.querySelectorAll('section');
