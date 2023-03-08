@@ -88,14 +88,14 @@ if (isset($_POST['btn-register'])) {
                         </div>
                         <form action="" method="post">
                         <div class="container">
-                            <input type="text" placeholder="Enter Name" name="name" id="name" required>
-                            <input type="text" placeholder="Enter User Name" name="username"value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" required>
+                            <input type="text" placeholder="Fullname" name="name" id="name" required>
+                            <input type="text" placeholder="Username" name="username"value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" required>
                             <?php if (!empty($registration_error) && strpos($registration_error, 'Username already exists') !== false): ?>
                             <p class="error-message"><?php echo $registration_error; ?></p>
                             <?php endif; ?>
-                            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-                            <input type="text" placeholder="Enter Phone" name="phone" id="phone" required>
-                            <input type="password" placeholder="Enter Password" name="password" id="psw" required>
+                            <input type="text" placeholder="Email" name="email" id="email" required>
+                            <input type="text" placeholder="Phone" name="phone" id="phone" required>
+                            <input type="password" placeholder="Password" name="password" id="psw" required>
                             <input type="password" placeholder="Confirm Password" name="confirm_password"
                                 id="psw-repeat" required>
                             <p class="p-terms">By creating an account you agree to our <a href="#">Terms & Privacy</a>.
