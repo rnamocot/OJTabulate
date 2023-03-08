@@ -1,9 +1,4 @@
 RewriteEngine On
 RewriteCond %{REQUEST_FILENAME} !-d
-<<<<<<< HEAD
-RewriteCond %{REQUEST_FILENAME}.php -f
-RewriteRule ^(.*)$ $1.php [L]
-=======
 RewriteCond %{REQUEST_FILENAME}\.php -f
 RewriteRule ^([^\.]+)$ $1.php [NC,L]
->>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
