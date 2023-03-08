@@ -27,5 +27,23 @@ function verifyUser($username, $password) {
         return false;
     }
 }
+function selectAdmin($ojt_admin_username, $password) {
+    global $conn;
+    $sql = "SELECT * FROM ojt_admin WHERE ojt_admin_username='$ojt_admin_username'";
+    $result = $conn->query($sql);
+    $result = mysqli_query($conn, $sql);
+
+    if ($result->num_rows == 1) {
+        $row = $result->fetch_assoc();
+        if ($password == $row['ojt_admin_password']) {
+            return true;
+        } else {
+            return false;
+        }
+      } else {
+        return false;
+      }
+    }
 
 ?>
+

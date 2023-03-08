@@ -2,10 +2,10 @@
 require_once('./includes/methods_queries.php');
 session_start();
 
-if (isset($_SESSION['username'])) {
-    header("Location: ./dashboard/teacher.php");
-    exit();
-}
+// if (isset($_SESSION['username'])) {
+//     header("Location: ./dashboard/teacher.php");
+//     exit();
+// }
 if (isset($_POST['btn-login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -88,8 +88,7 @@ if (isset($_POST['btn-login'])) {
                             <div class="forgot-reg">
                                 <span class="psw">Forgot <a href="#">password?</a></span>
                                 <div class="signup-div">
-                                    <span>Don't have an account? <a href="#" type="button" class="reg-btn btn-primary"
-                                            data-bs-toggle="modal" data-bs-target="#register">Sign up</a></span>
+                                    <span>Don't have an account? <a href="signup.php" type="button" class="reg-btn btn-primary">Sign up</a></span>
                                 </div>
                         </form>
                     </div>

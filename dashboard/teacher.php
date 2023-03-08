@@ -37,35 +37,35 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" onclick="showContent('profile')" class="active">
+                <a href="#profile" onclick="showContent('profile')" class="active">
                     <i class='bx bx-user'></i>
                     <span class="title">My profile</span>
                 </a>
                 <span class="tooltip">My profile</span>
             </li>
             <li>
-                <a href="#" onclick="showContent('student-employer')" class="active">
+                <a href="#student-employer" onclick="showContent('student-employer')" class="active">
                     <i class='bx bx-user'></i>
                     <span class="title">Student Employer</span>
                 </a>
                 <span class="tooltip">Student Employer</span>
             </li>
             <li>
-                <a href="#" onclick="showContent('students')" class="active">
+                <a href="#students" onclick="showContent('students')" class="active">
                     <i class='bx bx-street-view'></i>
                     <span class="title">My Students</span>
                 </a>
                 <span class="tooltip">My Students</span>
             </li>
             <li>
-                <a href="#" onclick="showContent('qr-code')" class="active">
+                <a href="#qr-code" onclick="showContent('qr-code')" class="active">
                     <i class='bx bx-qr-scan'></i>
                     <span class="title">QR Code</span>
                 </a>
                 <span class="tooltip">QR Code</span>
             </li>
             <li>
-                <a href="#" onclick="showContent('setting')" class="active">
+                <a href="#setting" onclick="showContent('setting')" class="active">
                     <i class="bx bx-cog"></i>
                     <span class="title">Profile Settings</span>
                 </a>

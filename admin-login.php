@@ -1,17 +1,17 @@
 <?php
 require_once('./includes/methods_queries.php');
 session_start();
-
-if (isset($_SESSION['username'])) {
+if (isset($_SESSION['username_admin'])) {
     header("Location: ./dashboard/admin.php");
     exit();
 }
+
 if (isset($_POST['btn-login'])) {
-    $username = $_POST['username'];
+    $ojt_admin_username = $_POST['username'];
     $password = $_POST['password'];
-    if (verifyUser($username, $password)) {
-        $_SESSION['username'] = $username;
-        header("Location: ./dashboard/teacher.php");
+    if (selectAdmin($ojt_admin_username, $password)) {
+        $_SESSION['username_admin'] = $ojt_admin_username;
+        header("Location: ./dashboard/admin.php");
         exit();
     } else {
         $login_error = "Invalid username or password. Please try again.";
@@ -30,7 +30,7 @@ if (isset($_POST['btn-login'])) {
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <!-- Custom stylesheet -->
     <link href="./public/assets/style.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="./public/images/fav.png">
+    <link rel="icon" type="image/x-icon" href="./public/images/logo.g">
     <!--googlefont-->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -43,7 +43,7 @@ if (isset($_POST['btn-login'])) {
     <nav class="navbar navbar-expand-lg ">
         <div class="container ">
             <a class="navbar-brand" href="#">
-                <img src="./public/images/logomain.png" class=" mainlogo" alt="Logo" />
+                <img src="./public/images/logo.jpg" class=" mainlogo" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -53,7 +53,7 @@ if (isset($_POST['btn-login'])) {
                     <a class="nav-link active" aria-current="page" href="#">About</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
-                    <a href="#" class="nav-link nav-signup" data-bs-toggle="modal" data-bs-target="#register">Sign up</a>
+                    <a href="signup.php" class="nav-link nav-signup" >Sign up</a>
                 </div>
             </div>
         </div>
@@ -84,9 +84,6 @@ if (isset($_POST['btn-login'])) {
                         </div>
                         <div class="forgot-reg">
                             <span class="psw">Forgot <a href="#">password?</a></span>
-                            <div class="signup-div">
-                                <span>Don't have an account? <a href="#" type="button" class="reg-btn btn-primary" data-bs-toggle="modal" data-bs-target="#register">Sign up</a></span>
-                            </div>
                     </form>
                 </div>
 
@@ -95,34 +92,6 @@ if (isset($_POST['btn-login'])) {
         </div><!--end of login section-->
     </div><!--end of content wrapper-->
     </div><!--end of main wrapper-->
-    <!-- Registraion Page -->
-    <!-- The Modal -->
-    <div class="modal fade" id="register">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h1>Registration</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <form action="" method="post">
-                        <div class="container">
-                            <p>Please fill in this form to create an account.</p>
-                            <input type="text" placeholder="Enter Name" name="name" id="name" required>
-                            <input type="text" placeholder="Enter User Name" name="username" id="username" required>
-                            <input type="text" placeholder="Enter Email" name="email" id="email" required>
-                            <input type="password" placeholder="Enter Password" name="password" id="psw" required>
-                            <input type="password" placeholder="Confirm Password" name="confirm_password" id="psw-repeat" required>
-                            <p class="p-terms">By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                            <button type="submit" value="Register" class="btn-registerbtn" name="btn-register">Register</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
     <footer>
         <div class="container">
             <div class="footer-sec">
@@ -130,8 +99,8 @@ if (isset($_POST['btn-login'])) {
                     <div class="col-md-3">
                         <div class="footer-logo-col">
                             <a class="footer-logo" href="#">
-                                <img src="./public/images/logomain.png" class="d-inline-block align-text-top mainlogo" alt="Logo" />
-                            </a>
+                                <img src="./public/images/logo.jpg" class="d-inline-block align-text-top mainlogo" alt="Logo" />
+                            </a><br><br>
                             <p>Our Internship Management program equips you with the skills and knowledge to effectively manage and develop successful internship programs.</p>
                         </div>
                     </div>
