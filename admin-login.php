@@ -1,3 +1,23 @@
+<?php
+require_once('./includes/methods_queries.php');
+session_start();
+
+if (isset($_SESSION['username'])) {
+    header("Location: ./dashboard/admin.php");
+    exit();
+}
+if (isset($_POST['btn-login'])) {
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    if (verifyUser($username, $password)) {
+        $_SESSION['username'] = $username;
+        header("Location: ./dashboard/teacher.php");
+        exit();
+    } else {
+        $login_error = "Invalid username or password. Please try again.";
+    }
+    }
+?>
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
