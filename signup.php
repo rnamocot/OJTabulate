@@ -83,8 +83,8 @@ if (isset($_POST['btn-register'])) {
                 </div>
                 <div class="col-xs-12 col-sm-4 col-md-4" id="right-content">
                     <div class="mainform-login">
-                        <div class="signin-heading">
-                            <h2>Please fill in this form to create an account.</h2>
+                        <div class="signup-heading">
+                            <h2 class="signup-heading">Please fill in this form to create an account.</h2>
                         </div>
                         <form action="" method="post">
                         <div class="container">
