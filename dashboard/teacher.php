@@ -25,10 +25,7 @@
     <!-- Qr code -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
 </head>
-<<<<<<< HEAD
-=======
 
->>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
 <body>
     <div class="sidebarleft expand">
         <div class="nav-header">
@@ -88,7 +85,6 @@
     <div class="main-db-right db-right-content">
         <div class="db-right-header">
             <section id="profile">
-<<<<<<< HEAD
             <div class="profile-col">
                     <div class="profile-row-1">
                       <h1>My Information details</h1> <br>
@@ -112,13 +108,6 @@
                   </table>
                 </div>
             </div>
-=======
-                <h1>My Information details</h1> <br>
-                <h4>Name: <?php echo $teacher_row['ojt_full_name']; ?></h4> <br>
-                <h4>Username: <?php echo $teacher_row['ojt_teachers_username']; ?></h4> <br>
-                <h4>Email: <?php echo $teacher_row['ojt_teachers_email']; ?></h4> <br>
-                <h4>Phone: <?php echo $teacher_row['ojt_teachers_phone']; ?> </h4> <br>
->>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
             </section>
             <!-- employer section -->
             <section id="student-employer">
