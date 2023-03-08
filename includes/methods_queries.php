@@ -12,7 +12,6 @@ function registerUser($fullname, $username, $password, $email, $phone) {
         return false;
     }
 }
-
 function verifyUser($username, $password) {
     global $conn;
     $sql = "SELECT ojt_teachers_password FROM ojt_teachers WHERE ojt_teachers_username='$username'";
