@@ -6,6 +6,38 @@ if (isset($_SESSION['username'])) {
     header("Location: ./dashboard/teacher.php");
     exit();
 }
+<<<<<<< HEAD
+=======
+if (isset($_POST['btn-register'])) {
+    $fullname = $_POST['name'];
+    $username = $_POST['username'];
+    $password = $_POST['password'];
+    $confirm_password = $_POST['confirm_password'];
+    $email = $_POST['email'];
+    $phone = $_POST['phone'];
+    
+    // Check if the username already exists in the database
+    $check_sql = "SELECT ojt_teachers_username FROM ojt_teachers WHERE ojt_teachers_username = '$username'";
+    $check_result = mysqli_query($conn, $check_sql);
+    if (mysqli_num_rows($check_result) > 0) {
+        $registration_error = "Username already exists. Please choose a different one.";
+    } else {
+        if ($password == $confirm_password) {
+            if (registerUser($fullname,$username, $password, $email, $phone)) {
+                $_SESSION['ojt_teacher_id'] = $ojt_teacher_id; // set the ojt_teacher_id as a session variable
+                $_SESSION['username'] = $username;
+                header("Location: index.php");
+                exit();
+            } else {
+                $registration_error = "Registration failed. Please try again.";
+            }
+        } else {
+            $registration_error = "Passwords do not match. Please try again.";
+        }
+
+    }
+}
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
 if (isset($_POST['btn-login'])) {
     $username = $_POST['username'];
     $password = $_POST['password'];
@@ -17,8 +49,16 @@ if (isset($_POST['btn-login'])) {
         $login_error = "Invalid username or password. Please try again.";
     }
     }
+<<<<<<< HEAD
 ?>
 <!DOCTYPE html>
+=======
+
+
+?>
+<!DOCTYPE html>
+
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,11 +66,16 @@ if (isset($_POST['btn-login'])) {
     <meta name="description"
         content="Our Internship Management program equips you with the skills and knowledge to effectively manage and develop successful internship programs. Learn practical strategies and gain valuable insights to help you optimize the intern experience and maximize organizational benefits. Join us today to elevate your internship management game!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+<<<<<<< HEAD
+=======
+
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
+<<<<<<< HEAD
     <link href="./public/assets/style.css" rel="stylesheet">
     <link rel="icon" type="image/x-icon" href="./public/images/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -42,6 +87,24 @@ if (isset($_POST['btn-login'])) {
     <nav class="navbar navbar-expand-lg ">
         <div class="container ">
             <a class="navbar-brand" href="/">
+=======
+    <!-- Custom stylesheet -->
+    <link href="./public/assets/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="./public/images/logo.jpg">
+    <!--googlefont-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <!-- Add icon library -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!-- Navigations -->
+    <nav class="navbar navbar-expand-lg ">
+        <div class="container ">
+            <a class="navbar-brand" href="#">
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
                 <img src="./public/images/logo.jpg" class=" mainlogo" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -53,12 +116,23 @@ if (isset($_POST['btn-login'])) {
                     <a class="nav-link active" aria-current="page" href="#">About</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
+<<<<<<< HEAD
                     <a href="signup.php" class="nav-link nav-signup">Sign up</a>
+=======
+                    <a href="#" class="nav-link nav-signup" data-bs-toggle="modal" data-bs-target="#register">Sign
+                        up</a>
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
                 </div>
             </div>
         </div>
     </nav>
+<<<<<<< HEAD
     <div class="main-wrapper page-login">
+=======
+    <!-- end Navigation -->
+    <div class="main-wrapper page-login">
+        <!--content-->
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
         <div class="container content-wrapper loginpage-sec">
             <div class="row" id="login-section">
                 <div class="col-xs-12 col-sm-8 col-md-8" id="left-content">
@@ -81,9 +155,18 @@ if (isset($_POST['btn-login'])) {
                                 <input type="text" placeholder="Username" name="username" required>
                                 <input type="password" placeholder="Password" name="password" required>
                                 <button type="submit" name="btn-login">SIGN IN</button>
+<<<<<<< HEAD
                                 <?php if (isset($login_error)) { ?>
                                 <p class="error-message"><?php echo $login_error; ?></p>
                                 <?php } ?>
+=======
+
+                                <!-- error checking -->
+                                <?php if (isset($login_error)) { ?>
+                                <p class="error-message"><?php echo $login_error; ?></p>
+                                <?php } ?>
+                                <!-- error checking -->
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
                             </div>
                             <div class="forgot-reg">
                                 <span class="psw">Forgot <a href="#">password?</a></span>
@@ -96,7 +179,51 @@ if (isset($_POST['btn-login'])) {
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
     </div>
+=======
+        <!--end of login section-->
+    </div>
+    <!--end of content wrapper-->
+    </div>
+    <!--end of main wrapper-->
+
+    <!-- Registraion Page -->
+        <!-- The Modal -->
+        <div class="modal fade" id="register">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h1>Registration</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <form action="" method="post">
+                        <div class="container">
+                            <p>Please fill in this form to create an account.</p>
+                            <input type="text" placeholder="Enter Name" name="name" id="name" required>
+                            <!-- <input type="text" placeholder="Enter User Name" name="username" id="username" required> -->
+                            <input type="text" placeholder="Enter User Name" name="username"value="<?php echo isset($_POST['username']) ? $_POST['username'] : ''; ?>" required>
+                            <?php if (!empty($registration_error) && strpos($registration_error, 'Username already exists') !== false): ?>
+                            <p class="error-message"><?php echo $registration_error; ?></p>
+                            <?php endif; ?>
+                            <input type="text" placeholder="Enter Email" name="email" id="email" required>
+                            <input type="text" placeholder="Enter Phone" name="phone" id="phone" required>
+                            <input type="password" placeholder="Enter Password" name="password" id="psw" required>
+                            <input type="password" placeholder="Confirm Password" name="confirm_password"
+                                id="psw-repeat" required>
+                            <p class="p-terms">By creating an account you agree to our <a href="#">Terms & Privacy</a>.
+                            </p>
+                            <button type="submit" value="Register" class="btn-registerbtn"
+                                name="btn-register">Register</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
     </div>
     <footer>
         <div class="container">
@@ -153,6 +280,10 @@ if (isset($_POST['btn-login'])) {
             </div>
         </div>
     </footer>
+<<<<<<< HEAD
+=======
+    <!-- Script to disable modal close when someone clicks outside the modal -->
+>>>>>>> b995595ba33e5f394e21bfdafd7b8d71b6647488
 </body>
 
 </html>
