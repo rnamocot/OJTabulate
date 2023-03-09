@@ -36,13 +36,13 @@
             <i class="bx bx-menu-alt-right btn-menu"></i>
         </div>
         <ul class="nav-links">
-            <li>
+            <!-- <li>
                 <a href="#profile" onclick="showContent('profile')" class="active">
                     <i class='bx bx-user'></i>
                     <span class="title">My profile</span>
                 </a>
                 <span class="tooltip">My profile</span>
-            </li>
+            </li> -->
             <li>
                 <a href="#student-employer" onclick="showContent('student-employer')" class="active">
                     <i class='bx bx-user'></i>
@@ -86,13 +86,6 @@
         <div class="db-right-header">
         <div id="default-content">
             <div class="profile-col">
-                    <div class="profile-row-1">
-                      <h1>My Information details</h1> <br>
-                      <h4><span class="profile-info">Name:</span><?php echo $teacher_row['ojt_full_name']; ?></h4> <br>
-                      <h4><span class="profile-info">Username:</span><?php echo $teacher_row['ojt_teachers_username']; ?></h4> <br>
-                      <h4><span class="profile-info">Email:</span><?php echo $teacher_row['ojt_teachers_email']; ?></h4> <br>
-                       <h4><span class="profile-info">Phone:</span> <?php echo $teacher_row['ojt_teachers_phone']; ?> </h4> <br>
-                    </div>
                     <div class="profile-row-2">
                         <h2>Employer details</h2>
                   <table>
@@ -108,33 +101,7 @@
                   </table>
                 </div>
             </div>
-            </div>
-
-            <section id="profile">
-            <div class="profile-col">
-                    <div class="profile-row-1">
-                      <h1>My Information details</h1> <br>
-                      <h4><span class="profile-info">Name:</span><?php echo $teacher_row['ojt_full_name']; ?></h4> <br>
-                      <h4><span class="profile-info">Username:</span><?php echo $teacher_row['ojt_teachers_username']; ?></h4> <br>
-                      <h4><span class="profile-info">Email:</span><?php echo $teacher_row['ojt_teachers_email']; ?></h4> <br>
-                       <h4><span class="profile-info">Phone:</span> <?php echo $teacher_row['ojt_teachers_phone']; ?> </h4> <br>
-                    </div>
-                    <div class="profile-row-2">
-                        <h2>Employer details</h2>
-                  <table>
-                    <tr>
-                        <th>Employee Name</th>
-                        <th>Supervisor Name</th>
-                        <th>Phone </th>
-                        <th>Email</th>
-                        <th>Address</th>
-                    </tr>
-                    <!-- call the getEmployer method to display employee data -->
-                    <?php  getEmployer($user_id);  ?>
-                  </table>
-                </div>
-            </div>
-            </section>
+        </div>
             <!-- employer section -->
             <section id="student-employer">
                 <h1>Your Students Employer Details</h1>
