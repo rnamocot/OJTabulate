@@ -1,6 +1,15 @@
 <?php
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
+require_once('./PHPMailer/src/Exception.php');
+require_once('./PHPMailer/src/PHPMailer.php');
+require_once('./PHPMailer/src/SMTP.php');
+
 require_once('./includes/methods_queries.php');
+
 session_start();
+
 if (isset($_POST['btn-register'])) {
     $fullname = $_POST['name'];
     $username = $_POST['username'];
@@ -10,23 +19,38 @@ if (isset($_POST['btn-register'])) {
     $phone = $_POST['phone'];
     $check_sql = "SELECT ojt_teachers_username FROM ojt_teachers WHERE ojt_teachers_username = '$username'";
     $check_result = mysqli_query($conn, $check_sql);
+    
     if (mysqli_num_rows($check_result) > 0) {
         $registration_error = "Username already exists. Please choose a different one.";
     } else {
         if ($password == $confirm_password) {
             if (registerUser($fullname,$username, $password, $email, $phone)) {
-                $_SESSION['ojt_teacher_id'] = $ojt_teacher_id;
-                $_SESSION['username'] = $username;
-
-                                // Send email notification
-                                $to = "namocotrenie@gmail.com";
-                                $subject = "New user registered";
-                                $message = "Name: $fullname\nUsername: $username\nEmail: $email\nPhone: $phone";
-                                mail($to, $subject, $message);
-
-
-                header("Location: thank-you.php");
-                exit();
+                // Send email notification
+                $mail = new PHPMailer;
+                
+                $mail->isSMTP();
+                $mail->Host = 'smtp.gmail.com';
+                $mail->Port = 465;
+                $mail->Username = 'reniewordpress@gmail.com';
+                $mail->Password = 'tarsierjojo123';
+                $mail->SMTPSecure = 'ssl';
+                $mail->SMTPAuth = true;
+                $mail->setFrom('reniewordpress@gmail.com', 'Ren');
+                $mail->addAddress('namocotrenie@gmail.com', 'Ren Nam');
+                $mail->isHTML(true);
+                $mail->Subject = 'New User Registration';
+                $mail->Body = "A new user has registered:\nName: $fullname\nUsername: $username\nEmail: $email\nPhone: $phone";
+                $mail->send();
+                
+                if (!$mail->send()) {
+                    $registration_error = 'Registration succeeded, but email notification failed: ' . $mail->ErrorInfo;
+                    var_dump($registration_error);
+                } else {
+                    $_SESSION['ojt_teacher_id'] = $ojt_teacher_id;
+                    $_SESSION['username'] = $username;
+                    header("Location: thank-you.php");
+                    exit();
+                }
             } else {
                 $registration_error = "Registration failed. Please try again.";
             }
@@ -36,6 +60,7 @@ if (isset($_POST['btn-register'])) {
     }
 }
 ?>
+
 <!DOCTYPE html>
 <head>
     <meta charset="utf-8">
