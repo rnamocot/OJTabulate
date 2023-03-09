@@ -1,0 +1,32 @@
+.employe-edit-div img.employee-img {
+    height: 388px;
+}
+.employe-edit-div .employe-edit-div {
+    padding: 50px 0px;
+}
+.employe-edit-div .col-md-7.employee-form {
+    padding: 50px;
+}
+.employe-edit-div input[type=text], input[type=password] {
+    width: 100%;
+    padding: 10px 10px;
+    margin: 20px 0;
+    display: inline-block;
+    font-family: 'Inter', sans-serif;
+    border: 1px solid #2125294d !important;
+}
+.employe-edit-div .form-control {
+    border: 1px solid #2125294d !important;
+    padding: 10px 10px;
+    margin: 10px 0;
+}
+
+.employe-edit-div h2 {
+    font-family: 'Inter', sans-serif;
+    font-weight: 700!important;
+    font-size: 30px!important;
+    line-height: 1.2em;
+    color: #212529;
+    padding-bottom: 30px;
+    margin-bottom: 10px;
+}

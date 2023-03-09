@@ -6,8 +6,16 @@
    }
    $username = $_SESSION['username_admin'];
    require_once ('../includes/admin_dashboard_queries.php');
-   $teacher_row=getUserid($username)
+//    $teacher_row=getUserid($username);
+
+   $ojtTeachers = getTeacherUsers();
+   $ojtEmployers=getEmployers();
+   $ojtEmployerssecondtab=getEmployers();
+   $ojtStudents=getStudents();
+   $adminprofile=adminlogin($username);
+   
    ?>
+
 <!DOCTYPE html>
 <html>
 
@@ -74,44 +82,76 @@
         <!-- Logout button -->
     </div>
     <!-- Right Side Contents -->
-    <div class="main-db-right db-right-content">
+    <style>
+    #admin-db .db-right-header {
+      padding: 20px;
+      background-color: #fff;
+     border-radius: 10px;
+     }
+   </style>
+    <div class="main-db-right db-right-content" id="admin-db">
         <div class="db-right-header">
             <div id="default-content">
-                <div class="profile-col-admin">
-                    <div class="profile-row-admin">
-                        <h2>Employer details</h2>
-                        <div class="table-header">
-                    <input class="form-control search-box" type="text" placeholder="Search name...">
-                </div>
-                        <table>
-                            <tr>
-                                <th>Employee Name</th>
-                                <th>Supervisor Name</th>
-                                <th>Phone </th>
-                                <th>Email</th>
-                                <th>Address</th>
-                            </tr>
-                            <!-- call the getEmployer method to display employee data -->
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- Supervisor section -->
-            <section id="supervisor">
-                <h1>Employer Details</h1>
+              <h1>OJT Supervisor</h1>
                 <div class="table-header">
                     <input class="form-control search-box" type="text" placeholder="Search name...">
                 </div>
                 <table>
                     <tr>
+                        <th>ID</th>
                         <th>Employee Name</th>
                         <th>Supervisor Name</th>
                         <th>Phone </th>
                         <th>Email</th>
                         <th>Address</th>
+                        <th>Actions</th>
                     </tr>
                     <!-- call the getEmployer method to display employee data -->
-                    <?php  getTeacherUsers()  ?> 
+                    <?php  
+                    while ($row = mysqli_fetch_assoc($ojtEmployers)) {
+                        echo "<tr>
+                            <td>" . $row['ojt_employee_id'] ."</td>
+                            <td>" . $row['ojt_employee_name'] ."</td>
+                            <td>" . $row['ojt_employee_supervisor'] . "</td>
+                            <td>" . $row['ojt_employee_phone'] . "</td>
+                            <td>" . $row['ojt_employee_email'] . "</td>
+                            <td>" . $row['ojt_employee_address'] . "</td>
+                            <td><a href='../edit/edit_employee.php?id=".$row['ojt_employee_id']."'>Edit</a></td>
+                        </tr>";
+                    }
+                    ?>
+                </table>
+            </div>
+            <!-- Supervisor section -->
+            <section id="supervisor">
+                <h1>OJT Supervisor</h1>
+                <div class="table-header">
+                    <input class="form-control search-box" type="text" placeholder="Search name...">
+                </div>
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Employee Name</th>
+                        <th>Supervisor Name</th>
+                        <th>Phone </th>
+                        <th>Email</th>
+                        <th>Address</th>
+                        <th>Actions</th>
+                    </tr>
+                    <!-- call the getEmployer method to display employee data -->
+                    <?php  
+                    while ($row = mysqli_fetch_assoc($ojtEmployerssecondtab)) {
+                        echo "<tr>
+                            <td>" . $row['ojt_employee_id'] ."</td>
+                            <td>" . $row['ojt_employee_name'] ."</td>
+                            <td>" . $row['ojt_employee_supervisor'] . "</td>
+                            <td>" . $row['ojt_employee_phone'] . "</td>
+                            <td>" . $row['ojt_employee_email'] . "</td>
+                            <td>" . $row['ojt_employee_address'] . "</td>
+                            <td><a href='../edit/edit_employee.php?id=".$row['ojt_employee_id']."'>Edit</a></td>
+                        </tr>";
+                    }
+                    ?>
                 </table>
             </section>
             <!-- END - Supervisor section -->
@@ -124,31 +164,62 @@
                 </div>
                 <table>
                     <tr>
-                        <th>Teacher Name</th>
+                        <th>ID</th>
+                        <th>Full Name</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Phone</th>
                     </tr>
                     <!-- call the Teachers method to display employee data -->
-                    <?php  getTeacherUsers()  ?>
+                    <?php  
+                    while ($row = mysqli_fetch_assoc($ojtTeachers)) {
+                        echo "<tr>
+                            <td>" . $row['ojt_teachers_id'] . "</td>
+                            <td>" . $row['ojt_full_name'] . "</td>
+                            <td>" . $row['ojt_teachers_username'] . "</td>
+                            <td>" . $row['ojt_teachers_email'] . "</td>
+                            <td>" . $row['ojt_teachers_phone'] . "</td>
+                        </tr>";
+                    }
+                    ?>
                 </table>
             </section>
             <!-- END - Employer section -->
             <section id="students">
-                <h1>Students Content</h1>
-                <p>Here are the students.</p>
+                <h1>Students</h1>
+                <input class="form-control search-box" type="text" placeholder="Search name...">
+                <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>UsernameName</th>
+                        <th>Stundent Name</th>
+                        <th>Phone </th>
+                        <th>Email</th>
+                        <th>Address</th>
+                    </tr>
+                    <!-- call the getEmployer method to display employee data -->
+                    <?php  
+                    while ($row = mysqli_fetch_assoc($ojtStudents)) {
+                        echo "<tr>
+                            <td>" . $row['ojt_students_id'] ."</td>
+                            <td>" . $row['ojt_students_username'] ."</td>
+                            <td>" . $row['ojt_students_name'] . "</td>
+                            <td>" . $row['ojt_students_phone'] . "</td>
+                            <td>" . $row['ojt_employee_email'] . "</td>
+                            <td>" . $row['ojt_employee_address'] . "</td>
+                        </tr>";
+                    }
+                    ?>
+                </table>
             </section>
             <section id="setting">
-                <h1>Setting Content</h1>
-                <p>Your Profile</p>
                 <div class="profile-row-1">
                     <h1>My Information details</h1> <br>
-                    <h4><span class="profile-info">Username:</span><?php echo $teacher_row['ojt_admin_username']; ?>
-                    </h4> <br>
-                    <h4><span class="profile-info">Email:</span><?php echo $teacher_row['ojt_teachers_username']; ?></h4>   
+                    <h4><span class="profile-info">ID:</span><?php echo $adminprofile['ojt_admin_id']; ?></h4> <br>
+                    <h4><span class="profile-info">Username:</span><?php echo   $adminprofile['ojt_admin_username']; ?></h4> 
                 </div>
             </section>
         </div>
     </div>
 </body>
-
 </html>
