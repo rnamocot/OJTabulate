@@ -1,55 +1,79 @@
 <?php
-require_once('./includes/methods_queries.php');
-session_start();
-if (isset($_SESSION['username_admin'])) {
-    header("Location: ./dashboard/admin.php");
-    exit();
-}
+    // Connect to the database
+require_once('../config/mydb.php');
+$conn = connectionDBlocal();
 
-if (isset($_POST['btn-login'])) {
-    $ojt_admin_username = $_POST['username'];
-    $password = $_POST['password'];
-    if (selectAdmin($ojt_admin_username, $password)) {
-        $_SESSION['username_admin'] = $ojt_admin_username;
-        header("Location: ./dashboard/admin.php");
-        exit();
+    // Check if the form has been submitted
+    if (isset($_POST['btn-edit'])) {
+        // Get the form data
+        $id = $_POST['id'];
+        $fullname = $_POST['fullname'];
+        $username = $_POST['username'];
+        $phone = $_POST['phone'];
+        $email = $_POST['email'];
+
+        // Update the employee in the database
+        $sql = "UPDATE ojt_employee SET ojt_employee_status='$status',ojt_employee_name='$employeename', ojt_employee_supervisor='$supervisorname', ojt_employee_phone='$phone', ojt_employee_email='$email', ojt_employee_address='$address' WHERE ojt_employee_id=$id";
+        $result = mysqli_query($conn, $sql);
+
+        // Check if the update was successful
+        if ($result) {
+            header("Location: ../dashboard/admin.php");
+            exit();
+        } else {
+            echo "Error updating record: " . mysqli_error($conn);
+        }
     } else {
-        $login_error = "Invalid username or password. Please try again.";
-    }
-    }
-?>
-<!DOCTYPE html>
+        // Get the employee ID from the URL parameter
+        $id = $_GET['id'];
 
+        // Get the employee from the database
+        $sql = "SELECT ojt_full_name, ojt_teachers_username, ojt_teachers_phone, ojt_employee_phone, ojt_teachers_email FROM ojt_teachers WHERE ojt_teachers_id=$id";
+        $result = mysqli_query($conn, $sql);
+
+        // Check if the employee was found
+        if (mysqli_num_rows($result) == 1) {
+            // Get the employee data
+            $row = mysqli_fetch_assoc($result);
+            $fullname['ojt_full_name'];
+            $username = $row['ojt_teachers_username'];
+            $phone = $row['ojt_teachers_phone'];
+            $email = $row['ojt_teachers_email'];
+        } else {
+            echo "Employee not found.";
+        }
+    }
+    
+    // Close the database connection
+    mysqli_close($conn);
+    ?>
+
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OJTabulate - Internship Management: Strategies for Success</title>
+    <title>OJTabulate - Signup</title>
     <meta name="description"
         content="Our Internship Management program equips you with the skills and knowledge to effectively manage and develop successful internship programs. Learn practical strategies and gain valuable insights to help you optimize the intern experience and maximize organizational benefits. Join us today to elevate your internship management game!">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
     </script>
-    <!-- Custom stylesheet -->
-    <link href="./public/assets/style.css" rel="stylesheet">
-    <link rel="icon" type="image/x-icon" href="../public/images/logo.g">
-    <!--googlefont-->
+    <link href="../public/assets/edit_employee.css" rel="stylesheet">
+    <link href="../public/assets/style.css" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="../public/images/logo.jpg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
-    <!-- Add icon library -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-
 <body>
-    <!-- Navigations -->
-    <nav class="navbar navbar-expand-lg ">
+<nav class="navbar navbar-expand-lg ">
         <div class="container ">
-            <a class="navbar-brand" href="#">
-                <img src="./public/images/logo.jpg" class=" mainlogo" alt="Logo" />
+            <a class="navbar-brand" href="../index.php">
+                <img src="../public/images/logo.jpg" class=" mainlogo" alt="Logo" />
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
                 aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,51 +84,56 @@ if (isset($_POST['btn-login'])) {
                     <a class="nav-link active" aria-current="page" href="#">About</a>
                     <a class="nav-link" href="#">Features</a>
                     <a class="nav-link" href="#">Pricing</a>
-                    <a href="signup.php" class="nav-link nav-signup">Sign up</a>
+                    <a href="../signup.php" class="nav-link nav-signup" >Sign up</a>
                 </div>
             </div>
         </div>
     </nav>
-    <!-- end Navigation -->
-    <div class="main-wrapper page-login">
-        <!--content-->
-        <div class="container content-wrapper loginpage-sec">
-            <div class="row" id="login-section">
-                <div class="col-xs-12 col-sm-8 col-md-8" id="left-content">
-                    <h1>Mastering <span class="heading-highlight">Internship Management</span><br> Strategies for
-                        Success</h1>
-                    <h3>You are on your way to becoming excellent educators and mentors for the next generation. As you
-                        embark on this journey, we wish you all the best and hope that you gain valuable insights,
-                        knowledge, and experience that will help you in your future careers.</h3>
-                    <div class="teacher-div" href="#">
-                        <img src="./public/images/teacher2.png" class="banner-img" alt="Logo" />
+
+<div class="employe-edit-div">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 employee-form">
+                    <div class="employee-heading">
+                    <h2>Edit Supervisor Details</h2>
                     </div>
-                </div>
-                <div class="col-xs-12 col-sm-4 col-md-4" id="right-content">
-                    <div class="mainform-login">
-                        <div class="signin-heading">
-                            <h2>Admin login</h2>
+                    <form method="POST" action="">
+                        <?php
+                        echo"
+                         <input type='hidden' name='id' value='$id'>
+                        <div class='form-group'>
+                        <label for='fullname'>Full Name:</label>
+                        <input type='text' class='form-control'  name='fullname' value='$fullname' >
+                    </div>
+                        <div class='form-group'>
+                            <label for='username'>Supervisor Name:</label>
+                            <input type='text' class='form-control'  name='username' value='$username'>
                         </div>
-                        <form action="" method="post">
-                            <div class="form-inner-container">
-                                <input type="text" placeholder="Username" name="username" required>
-
-                                <input type="password" placeholder="Password" name="password" required>
-                                <button type="submit" name="btn-login">SIGN IN</button>
-                            </div>
-                            <div class="forgot-reg">
-                                <span class="psw">Forgot <a href="#">password?</a></span>
-                        </form>
-                    </div>
-
+                        <div class='form-group'>
+                            <label for='phone'>Phone #:</label>
+                            <input type='tel' class='form-control'  name='phone' value='$phone'>
+                        </div>
+                        <div class='form-group'>
+                            <label for='email'>Email:</label>
+                            <input type='email' class='form-control'  name='email' value='$email'>
+                        </div>
+                        <button type='submit' name='btn-edit' >Edit</button>
+                        ";
+                        ?>
+                    </form>
+                </div>
+                <div class="col-md-5">
+                <div class="employee-img-div">
+                        <img src="../public/images/employee.jpg" class="employee-img" alt="Employee - OJT" />
+                </div>
+                <div class="btn-go-home">
+                <a href="../dashboard/admin.php">Go back to Admin dashbaord</a>
+                </div>
                 </div>
             </div>
+
         </div>
-        <!--end of login section-->
     </div>
-    <!--end of content wrapper-->
-    </div>
-    <!--end of main wrapper-->
     <footer>
         <div class="container">
             <div class="footer-sec">
@@ -112,9 +141,9 @@ if (isset($_POST['btn-login'])) {
                     <div class="col-md-3">
                         <div class="footer-logo-col">
                             <a class="footer-logo" href="#">
-                                <img src="./public/images/logo.jpg" class="d-inline-block align-text-top mainlogo"
+                                <img src="../public/images/logo.jpg" class="d-inline-block align-text-top mainlogo"
                                     alt="Logo" />
-                            </a><br><br>
+                            </a>
                             <p>Our Internship Management program equips you with the skills and knowledge to effectively
                                 manage and develop successful internship programs.</p>
                         </div>
@@ -163,3 +192,4 @@ if (isset($_POST['btn-login'])) {
 </body>
 
 </html>
+    

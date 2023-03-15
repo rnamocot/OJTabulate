@@ -84,15 +84,15 @@
     <!-- Right Side Contents -->
     <style>
     #admin-db .db-right-header {
-      padding: 20px;
-      background-color: #fff;
-     border-radius: 10px;
-     }
-   </style>
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+    }
+    </style>
     <div class="main-db-right db-right-content" id="admin-db">
         <div class="db-right-header">
             <div id="default-content">
-              <h1>OJT Supervisor</h1>
+                <h1>OJT Supervisor</h1>
                 <div class="table-header">
                     <input class="form-control search-box" type="text" placeholder="Search name...">
                 </div>
@@ -218,10 +218,12 @@
                 <div class="profile-row-1">
                     <h1>My Information details</h1> <br>
                     <h4><span class="profile-info">ID:</span><?php echo $adminprofile['ojt_admin_id']; ?></h4> <br>
-                    <h4><span class="profile-info">Username:</span><?php echo   $adminprofile['ojt_admin_username']; ?></h4> 
+                    <h4><span class="profile-info">Username:</span><?php echo   $adminprofile['ojt_admin_username']; ?>
+                    </h4>
                 </div>
             </section>
         </div>
     </div>
 </body>
+
 </html>
