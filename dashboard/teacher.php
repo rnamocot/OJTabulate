@@ -242,15 +242,15 @@ generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id)
                                                         <input type='text' class='form-control'  name='fullname' value='$fullname' >
                                                     </div>
                                                         <div class='form-group'>
-                                                            <label for='username'>Supervisor Name:</label>
+                                                            <label for='username'>Username:</label>
                                                             <input type='text' class='form-control'  name='username' value='$tusername'>
                                                         </div>
                                                         <div class='form-group'>
-                                                            <label for='phone'>Phone #:</label>
+                                                            <label for='phone'>Phone</label>
                                                             <input type='tel' class='form-control'  name='phone' value='$phone'>
                                                         </div>
                                                         <div class='form-group'>
-                                                            <label for='email'>Email:</label>
+                                                            <label for='email'>Email</label>
                                                             <input type='email' class='form-control'  name='email' value='$email'>
                                                         </div>
                                                         <button type='submit' id='btn-edit-profile' name='btn-edit-profile' >Submit</button>
