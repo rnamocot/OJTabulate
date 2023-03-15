@@ -14,7 +14,7 @@ function getTeacherUsers(){
 
 function getEmployers(){
     global $conn;
-    $sql = "SELECT ojt_employee_id,ojt_employee_name, ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address	 FROM ojt_employee";
+    $sql = "SELECT ojt_employee_id,ojt_employee_status,ojt_employee_name, ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address	 FROM ojt_employee";
     $result = mysqli_query($conn, $sql);
     if (!$result) {
         die("Query failed: " . mysqli_error($conn));

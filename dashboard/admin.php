@@ -99,6 +99,7 @@
                 <table>
                     <tr>
                         <th>ID</th>
+                        <th>Status</th>
                         <th>Employee Name</th>
                         <th>Supervisor Name</th>
                         <th>Phone </th>
@@ -111,6 +112,7 @@
                     while ($row = mysqli_fetch_assoc($ojtEmployers)) {
                         echo "<tr>
                             <td>" . $row['ojt_employee_id'] ."</td>
+                            <td>" . $row['ojt_employee_status'] ."</td>
                             <td>" . $row['ojt_employee_name'] ."</td>
                             <td>" . $row['ojt_employee_supervisor'] . "</td>
                             <td>" . $row['ojt_employee_phone'] . "</td>

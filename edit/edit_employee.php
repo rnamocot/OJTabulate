@@ -7,6 +7,7 @@ $conn = connectionDBlocal();
     if (isset($_POST['btn-edit'])) {
         // Get the form data
         $id = $_POST['id'];
+        $status = $_POST['status'];
         $employeename = $_POST['employeename'];
         $supervisorname = $_POST['supervisorname'];
         $phone = $_POST['phone'];
@@ -14,7 +15,7 @@ $conn = connectionDBlocal();
         $address = $_POST['address'];
 
         // Update the employee in the database
-        $sql = "UPDATE ojt_employee SET ojt_employee_name='$employeename', ojt_employee_supervisor='$supervisorname', ojt_employee_phone='$phone', ojt_employee_email='$email', ojt_employee_address='$address' WHERE ojt_employee_id=$id";
+        $sql = "UPDATE ojt_employee SET ojt_employee_status='$status',ojt_employee_name='$employeename', ojt_employee_supervisor='$supervisorname', ojt_employee_phone='$phone', ojt_employee_email='$email', ojt_employee_address='$address' WHERE ojt_employee_id=$id";
         $result = mysqli_query($conn, $sql);
 
         // Check if the update was successful
@@ -29,13 +30,14 @@ $conn = connectionDBlocal();
         $id = $_GET['id'];
 
         // Get the employee from the database
-        $sql = "SELECT ojt_employee_name, ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email, ojt_employee_address FROM ojt_employee WHERE ojt_employee_id=$id";
+        $sql = "SELECT ojt_employee_status, ojt_employee_name, ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email, ojt_employee_address FROM ojt_employee WHERE ojt_employee_id=$id";
         $result = mysqli_query($conn, $sql);
 
         // Check if the employee was found
         if (mysqli_num_rows($result) == 1) {
             // Get the employee data
             $row = mysqli_fetch_assoc($result);
+            $status = $row['ojt_employee_status'];
             $employeename = $row['ojt_employee_name'];
             $supervisorname = $row['ojt_employee_supervisor'];
             $phone = $row['ojt_employee_phone'];
@@ -123,6 +125,16 @@ $conn = connectionDBlocal();
                             <label for='address'>Address:</label>
                             <input class='form-control'  name='address' rows='3' value='$address'></input>
                         </div>
+                        <div class='form-group'>
+                        <label for='status'>Status:</label>
+                        <select class='form-control' name='status'>
+                            <option value='No Status'>Select</option>
+                            <option value='Contacted'>Contacted</option>
+                            <option value='Appointment met'>Appointment Met</option>
+                            <option value='Nurtured'>Nurtured</option>
+                            <option value='Trash'>Trash</option>
+                        </select>
+                    </div>
                         <button type='submit' name='btn-edit' >Edit</button>
                         ";
                         ?>
