@@ -71,3 +71,28 @@
     font-family: 'Inter', sans-serif;
     border: 1px solid #2125294d !important;
 }
+
+@media only screen and (max-width: 767px) {
+    .modal-content {
+        top: 25%;
+        left: 58%;
+        width: 20rem;
+    }
+    .profile-row-1 {
+        width: 93%;
+    }
+    .db-right-content {
+        position: relative;
+        padding:0px;
+        top: 0;
+        left: 77px;
+    }
+    .db-right-header {
+        padding: 20px 5px;
+    }
+    #btn-edit-profile {
+        padding: 15px 58px;
+        width: 200px;
+    }
+    
+}
