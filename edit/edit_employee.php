@@ -106,9 +106,19 @@ $conn = connectionDBlocal();
                         echo"
                          <input type='hidden' name='id' value='$id'>
                         <div class='form-group'>
-                            <label for='employeeName'>Employee Name:</label>
-                            <input type='text' class='form-control'  name='employeename' value='$employeename' >
+                            <label for='status'>Status:</label>
+                            <select class='form-control' name='status'>
+                            <option value='No Status'>Select Status</option>
+                            <option value='Contacted'>Contacted</option>
+                            <option value='Appointment met'>Appointment Met</option>
+                            <option value='Nurtured'>Nurtured</option>
+                            <option value='Trash'>Trash</option>
+                            </select>
                         </div>
+                        <div class='form-group'>
+                        <label for='employeeName'>Employee Name:</label>
+                        <input type='text' class='form-control'  name='employeename' value='$employeename' >
+                    </div>
                         <div class='form-group'>
                             <label for='yourName'>Supervisor Name:</label>
                             <input type='text' class='form-control'  name='supervisorname' value='$supervisorname'>
@@ -125,16 +135,6 @@ $conn = connectionDBlocal();
                             <label for='address'>Address:</label>
                             <input class='form-control'  name='address' rows='3' value='$address'></input>
                         </div>
-                        <div class='form-group'>
-                        <label for='status'>Status:</label>
-                        <select class='form-control' name='status'>
-                            <option value='No Status'>Select</option>
-                            <option value='Contacted'>Contacted</option>
-                            <option value='Appointment met'>Appointment Met</option>
-                            <option value='Nurtured'>Nurtured</option>
-                            <option value='Trash'>Trash</option>
-                        </select>
-                    </div>
                         <button type='submit' name='btn-edit' >Edit</button>
                         ";
                         ?>
