@@ -8,10 +8,12 @@ $username = $_SESSION['username'];
 require_once '../includes/dashboard_queries.php';
 $user_id = getUserid($username);
 $teacher_row = getTeacherprofile($user_id);
+$employer_list = getEmployers($user_id);
+$employer_list_tab = getEmployers($user_id);
 ?>
 
 <?php
-                                          // Edit Profile details
+// Edit Profile details
 // Check if the form has been submitted
 if (isset($_POST['btn-edit-profile'])) {
     // Get the form data
@@ -61,6 +63,10 @@ if (isset($_POST['btn-edit-profile'])) {
     <title>OJT - Dashboard</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" href="../public/assets/edit_profile.css">
     <link rel="stylesheet" href="../public/assets/dashboard.css">
@@ -128,37 +134,108 @@ if (isset($_POST['btn-edit-profile'])) {
             <div id="default-content">
                 <div class="profile-col">
                     <div class="profile-row-2">
-                        <h2>Employer details</h2>
+                        <h2>Supervisor</h2>
                         <table>
                             <tr>
-                                <th>Employee Name</th>
-                                <th>Supervisor Name</th>
-                                <th>Phone </th>
-                                <th>Email</th>
-                                <th>Address</th>
+                                <th>Name / Info</th>
+                                <th>Pipeline</th>
+                                <th>Quick Actions </th>
                             </tr>
                             <!-- call the getEmployer method to display employee data -->
-                            <?php getEmployer($user_id);?>
+                            <?php
+                            while ($row = mysqli_fetch_assoc($employer_list)) {
+                                echo "<tr>
+                            <td id='supervisor-details'>" . "<i class='bx bxs-user-circle' ></i>"
+                                    . $row['ojt_employee_name'] . "<br>" . "<i class='bx bx-phone'></i>"
+                                    . $row['ojt_employee_phone'] . "<br>" . "<i class='bx bx-envelope'></i>"
+                                    . $row['ojt_employee_email'] . "
+                            </td>
+                            <td id='ojt-employee-status'>
+                            <p style='background-color: " . ($row['ojt_employee_status'] == "New Contact" ? "red" : "transparent") . ";'>" . $row['ojt_employee_status'] . "</p>
+                                <div class='dropdown'>
+                                <button class='btn btn-primary dropdown-toggle' id='btn-status' type='button' data-toggle='dropdown'>Edit Status
+                                <span class='caret'></span>
+                                </button>
+                                <ul class='dropdown-menu'>
+                                <li><a href='#'>Attempted Contact</a></li>
+                                <li><a href='#'>Contacted</a></li>
+                                <li><a href='#'>Appointment set</a></li>
+                                <li><a href='#'>Appointment met</a></li>
+                                </ul>
+                                </div>
+                            </td>
+                            <td id='ojt-employee-quick-actions'>" . "
+                                <div class='dropdown'>
+                                    <button class='btn btn-primary dropdown-toggle' id='btn-qck' type='button' data-toggle='dropdown'>Quick Actions
+                                    <span class='caret'></span>
+                                    </button>
+                                    <ul class='dropdown-menu'>
+                                    <li><a href='#'>Add Note</a></li>
+                                    <li><a href='#'>New Reminder</a></li>
+                                    <li><a href='#'>Trash Contact</a></li>
+                                    <li><a href='#'>Merge Contact</a></li>
+                                    </ul>
+                                </div>
+                             " . "</td>
+                            </tr>";
+                            }
+                            ?>
                         </table>
                     </div>
                 </div>
             </div>
             <!-- employer section -->
             <section id="student-employer">
-                <h1>Your Students Employer Details</h1>
+                <h1>Supervisor</h1>
                 <div class="table-header">
                     <input class="form-control search-box" type="text" placeholder="Search name...">
                 </div>
                 <table>
                     <tr>
-                        <th>Employee Name</th>
-                        <th>Supervisor Name</th>
-                        <th>Phone </th>
-                        <th>Email</th>
-                        <th>Address</th>
+                        <th>Name / Info</th>
+                        <th>Pipeline</th>
+                        <th>Quick Actions </th>
                     </tr>
                     <!-- call the getEmployer method to display employee data -->
-                    <?php getEmployer($user_id);?>
+                    <!-- call the getEmployer method to display employee data -->
+                    <?php
+                    while ($row = mysqli_fetch_assoc($employer_list_tab)) {
+                        echo "<tr>
+                        <td id='supervisor-details'>" . "<i class='bx bxs-user-circle' ></i>"
+                            . $row['ojt_employee_name'] . "<br>" . "<i class='bx bx-phone'></i>"
+                            . $row['ojt_employee_phone'] . "<br>" . "<i class='bx bx-envelope'></i>"
+                            . $row['ojt_employee_email'] . "
+                </td>
+                <td id='ojt-employee-status'>
+                <p style='background-color: " . ($row['ojt_employee_status'] == "New Contact" ? "red" : "transparent") . ";'>" . $row['ojt_employee_status'] . "</p>
+                    <div class='dropdown'>
+                    <button class='btn btn-primary dropdown-toggle' id='btn-status' type='button' data-toggle='dropdown'>Edit Status
+                    <span class='caret'></span>
+                    </button>
+                    <ul class='dropdown-menu'>
+                    <li><a href='#'>Attempted Contact</a></li>
+                    <li><a href='#'>Contacted</a></li>
+                    <li><a href='#'>Appointment set</a></li>
+                    <li><a href='#'>Appointment met</a></li>
+                    </ul>
+                    </div>
+                </td>
+                <td id='ojt-employee-quick-actions'>" . "
+                    <div class='dropdown'>
+                        <button class='btn btn-primary dropdown-toggle' id='btn-qck' type='button' data-toggle='dropdown'>Quick Actions
+                        <span class='caret'></span>
+                        </button>
+                        <ul class='dropdown-menu'>
+                        <li><a href='#'>Add Note</a></li>
+                        <li><a href='#'>New Reminder</a></li>
+                        <li><a href='#'>Trash Contact</a></li>
+                        <li><a href='#'>Merge Contact</a></li>
+                        </ul>
+                    </div>
+                 " . "</td>
+                            </tr>";
+                    }
+                    ?>
                 </table>
             </section>
             <!-- END - Employer section -->
@@ -175,38 +252,38 @@ if (isset($_POST['btn-edit-profile'])) {
                         registration
                     </h4>
                     <?php
-function generateQRCodeLink($url, $user_id)
-{
-    // Append the username to the URL
-    $url .= '?teacher=' . urlencode($user_id); //username is from session
-    // Generate QR code using qrcode.js library
-    echo '<div id="qrcode"></div>';
-    echo '<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>';
-    echo '<script>';
-    echo 'new QRCode(document.getElementById("qrcode"), "' . $url . '");';
-    echo '</script>';
-    // Add save button to download QR code image
-    echo '<button id="save_btn">Save QR Code</button>';
-    // JavaScript to save QR code image when "Save QR Code" button is clicked
-    echo '<script>';
-    echo 'var saveBtn = document.getElementById("save_btn");';
-    echo 'var canvas = document.querySelector("canvas");';
-    echo 'saveBtn.addEventListener("click", function() {';
-    echo 'var dataUrl = canvas.toDataURL();';
-    echo 'var filename = "QR Code.png";';
-    echo 'saveBtn.innerHTML = "Downloading...";';
-    echo 'saveBtn.disabled = true;';
-    echo 'var link = document.createElement("a");';
-    echo 'link.download = filename;';
-    echo 'link.href = dataUrl;';
-    echo 'link.click();';
-    echo 'saveBtn.innerHTML = "Save QR Code";';
-    echo 'saveBtn.disabled = false;';
-    echo '});';
-    echo '</script>';
-}
-generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id);
-?>
+                    function generateQRCodeLink($url, $user_id)
+                    {
+                        // Append the username to the URL
+                        $url .= '?teacher=' . urlencode($user_id); //username is from session
+                        // Generate QR code using qrcode.js library
+                        echo '<div id="qrcode"></div>';
+                        echo '<script src="https://cdn.jsdelivr.net/gh/davidshimjs/qrcodejs/qrcode.min.js"></script>';
+                        echo '<script>';
+                        echo 'new QRCode(document.getElementById("qrcode"), "' . $url . '");';
+                        echo '</script>';
+                        // Add save button to download QR code image
+                        echo '<button id="save_btn">Save QR Code</button>';
+                        // JavaScript to save QR code image when "Save QR Code" button is clicked
+                        echo '<script>';
+                        echo 'var saveBtn = document.getElementById("save_btn");';
+                        echo 'var canvas = document.querySelector("canvas");';
+                        echo 'saveBtn.addEventListener("click", function() {';
+                        echo 'var dataUrl = canvas.toDataURL();';
+                        echo 'var filename = "QR Code.png";';
+                        echo 'saveBtn.innerHTML = "Downloading...";';
+                        echo 'saveBtn.disabled = true;';
+                        echo 'var link = document.createElement("a");';
+                        echo 'link.download = filename;';
+                        echo 'link.href = dataUrl;';
+                        echo 'link.click();';
+                        echo 'saveBtn.innerHTML = "Save QR Code";';
+                        echo 'saveBtn.disabled = false;';
+                        echo '});';
+                        echo '</script>';
+                    }
+                    generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id);
+                    ?>
                 </div>
             </section>
             <section id="setting">
@@ -236,7 +313,7 @@ generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id)
                                         <form method="POST" action="">
                                             <?php
 
-                                               echo "
+                                            echo "
                                                         <div class='form-group'>
                                                         <label for='fullname'>Fullname</label>
                                                         <input type='text' class='form-control'  name='fullname' value='$fullname' >
@@ -255,7 +332,7 @@ generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id)
                                                         </div>
                                                         <button type='submit' id='btn-edit-profile' name='btn-edit-profile' >Submit</button>
                                                         ";
-                                                ?>
+                                            ?>
                                         </form>
                                     </div>
                                 </div>
@@ -265,23 +342,23 @@ generateQRCodeLink('https://ojtabulate.com/employee-registration.php', $user_id)
                     </div>
                 </div>
                 <script>
-                const modal = document.querySelector(".modal");
-                const trigger = document.querySelector(".trigger");
-                const closeButton = document.querySelector(".close-button");
+                    const modal = document.querySelector(".modal");
+                    const trigger = document.querySelector(".trigger");
+                    const closeButton = document.querySelector(".close-button");
 
-                function toggleModal() {
-                    modal.classList.toggle("show-modal");
-                }
-
-                function windowOnClick(event) {
-                    if (event.target === modal) {
-                        toggleModal();
+                    function toggleModal() {
+                        modal.classList.toggle("show-modal");
                     }
-                }
 
-                trigger.addEventListener("click", toggleModal);
-                closeButton.addEventListener("click", toggleModal);
-                window.addEventListener("click", windowOnClick);
+                    function windowOnClick(event) {
+                        if (event.target === modal) {
+                            toggleModal();
+                        }
+                    }
+
+                    trigger.addEventListener("click", toggleModal);
+                    closeButton.addEventListener("click", toggleModal);
+                    window.addEventListener("click", windowOnClick);
                 </script>
                 <!--- END - Modal -->
             </section>

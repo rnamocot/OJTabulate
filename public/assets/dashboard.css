@@ -14,6 +14,36 @@ font-size: 20px;
 a{
     text-decoration: none;
 }
+ul {
+  padding-left: 0rem !important;
+}
+#btn-qck { 
+  color: #fff !important;
+  background-color: #0d6efd !important;
+  font-size: 12px !important;
+}
+#btn-status{
+  background-color: transparent !important;
+  font-size: 12px !important;
+  color: #000;
+  border: none !important;
+}
+#btn-status:hover{
+  background-color: transparent !important;
+  font-size: 12px !important;
+  border: none !important;
+}
+#ojt-employee-status p {
+  color: #fff !important;
+  font-size: 12px !important;
+  padding: 5px 10px;
+  border-radius: 3px;
+}
+
+td#ojt-employee-status ,td#ojt-employee-quick-actions {
+  text-align: center;
+}
+
 section {
     display: none;
   }
@@ -275,10 +305,19 @@ table {
   width: 100%;
 
 }
-
+#supervisor-details i {
+  color: #ffffff !important;
+  font-size: 12px !important;
+  background-color: #0d6efd !important;
+  ;
+  border-radius: 11px;
+  padding: 4px;
+  margin-right: 10px !important;
+  margin-bottom: 3px;
+}
 th, td {
   padding: 8px;
-  text-align: center;
+  text-align: left;
   border-bottom: 1px solid #ddd;
 }
 td{
@@ -301,12 +340,12 @@ th {
 table {
   border-collapse: collapse;
   width: 100%;
-  text-align: center;
+  text-align: left;
 }
 
 th, td {
   padding: 8px;
-  text-align: center;
+  text-align: left;
 
 }
 
