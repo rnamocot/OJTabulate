@@ -11,6 +11,7 @@ function getUserid($username){
     }
     return $row['ojt_teachers_id'] ;
 }
+/*
 function getEmployer($user_id){
     global $conn;
     $sql = "SELECT ojt_employee_name,ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address FROM ojt_employee WHERE ojt_teachers_id='$user_id'";
@@ -24,11 +25,22 @@ function getEmployer($user_id){
         echo "<p>No Employer listed..</p>";
     }
 }
+*/
+function getEmployers($user_id){
+    global $conn;
+    $sql = "SELECT ojt_employee_name,ojt_employee_status,ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address FROM ojt_employee WHERE ojt_teachers_id='$user_id'";
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+    return $result;
+}
 function getTeacherprofile($user_id){
     global $conn;
     $sql = "SELECT * FROM ojt_teachers WHERE ojt_teachers_id='$user_id'";
     $result = mysqli_query($conn, $sql); 
     return $result->fetch_assoc();
 }
+
 
 ?>
