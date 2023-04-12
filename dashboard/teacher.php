@@ -145,10 +145,84 @@ if (isset($_POST['btn-edit-profile'])) {
                             <?php
                             while ($row = mysqli_fetch_assoc($employer_list)) {
                                 echo "<tr>
-                            <td id='supervisor-details'>" . "<i class='bx bxs-user-circle' ></i>"
-                                    . $row['ojt_employee_name'] . "<br>" . "<i class='bx bx-phone'></i>"
-                                    . $row['ojt_employee_phone'] . "<br>" . "<i class='bx bx-envelope'></i>"
-                                    . $row['ojt_employee_email'] . "
+                                    <td id='supervisor-details'>" . "<i class='bx bxs-user-circle'></i>" . $row['ojt_employee_name'] . "<br>" .
+                                    "<i class='bx bx-phone'></i>" . "<a href='tel:" . $row['ojt_employee_phone'] . "'>" . $row['ojt_employee_phone'] . "</a><br>" .
+                                    "<i class='bx bx-envelope'></i>" . "<a href='mailto:" . $row['ojt_employee_email'] . "'>" . $row['ojt_employee_email'] . "</a>" . "
+                                    </td>
+                                    <td id='ojt-employee-status'>
+                                    <p id='current-status' style='background-color: " . ($row['ojt_employee_status'] == "New Contact" ? "red" : "transparent") . ";'>" . $row['ojt_employee_status'] . "</p>
+                                        <div class='dropdown'>
+                                            <button class='btn btn-primary dropdown-toggle' id='btn-status' type='button' data-toggle='dropdown'>Edit Status
+                                            <span class='caret'></span>
+                                            </button>
+                                            <ul class='dropdown-menu'>
+                                                <li><a href='#'>Attempted Contact</a></li>
+                                                <li><a href='#'>Contacted</a></li>
+                                                <li><a href='#'>Appointment set</a></li>
+                                                <li><a href='#'>Appointment met</a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                    <td id='ojt-employee-quick-actions'>" . "
+                                        <div class='dropdown'>
+                                            <button class='btn btn-primary dropdown-toggle' id='btn-qck' type='button' data-toggle='dropdown'>Quick Actions
+                                            <span class='caret'></span>
+                                            </button>
+                                            <ul class='dropdown-menu'>
+                                                <li><a href='#'>Add Note</a></li>
+                                                <li><a href='#'>New Reminder</a></li>
+                                                <li><a href='#'>Trash Contact</a></li>
+                                                <li><a href='#'>Merge Contact</a></li>
+                                            </ul>
+                                        </div>
+                                    " . "</td>
+                                </tr>";
+                            }
+                            ?>
+                            <script>
+                                $(document).on('click', '.dropdown-menu li a', function() {
+                                    var newStatus = $(this).text(); // get the selected status
+                                    $('#current-status').text(newStatus); // update the current status
+                                    $.ajax({
+                                        url: './handles/update_status.php', // the PHP script that will handle the update
+                                        method: 'POST',
+                                        data: {
+                                            status: newStatus,
+                                            employee_id: <?php echo $row['ojt_employee_id']; ?>
+                                        },
+                                        success: function(response) {
+                                            // handle the response from the PHP script
+                                        }
+                                    });
+                                });
+                            </script>
+
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- employer section -->
+            <section id="student-employer">
+                <h1>Supervisor</h1>
+                <div class="table-header">
+                    <input class="form-control search-box" type="text" placeholder="Search name...">
+                </div>
+                <table>
+                    <tr>
+                        <th>Name / Info</th>
+                        <th>Pipeline</th>
+                        <th>Quick Actions </th>
+                    </tr>
+                    <!-- call the getEmployer method to display employee data -->
+                    <!-- call the getEmployer method to display employee data -->
+                    <?php
+                    while ($row = mysqli_fetch_assoc($employer_list_tab)) {
+                        echo "<tr>
+                        <td id='supervisor-details'>" . "<i class='bx bxs-user-circle' ></i>"
+                            . $row['ojt_employee_name'] . "<br>" . "<i class='bx bx-phone'></i>"
+                            . $row['ojt_employee_phone'] . "<br>" . "<i class='bx bx-envelope'></i>"
+                            . $row['ojt_employee_email'] . "
                             </td>
                             <td id='ojt-employee-status'>
                             <p style='background-color: " . ($row['ojt_employee_status'] == "New Contact" ? "red" : "transparent") . ";'>" . $row['ojt_employee_status'] . "</p>
@@ -176,63 +250,7 @@ if (isset($_POST['btn-edit-profile'])) {
                                     <li><a href='#'>Merge Contact</a></li>
                                     </ul>
                                 </div>
-                             " . "</td>
-                            </tr>";
-                            }
-                            ?>
-                        </table>
-                    </div>
-                </div>
-            </div>
-            <!-- employer section -->
-            <section id="student-employer">
-                <h1>Supervisor</h1>
-                <div class="table-header">
-                    <input class="form-control search-box" type="text" placeholder="Search name...">
-                </div>
-                <table>
-                    <tr>
-                        <th>Name / Info</th>
-                        <th>Pipeline</th>
-                        <th>Quick Actions </th>
-                    </tr>
-                    <!-- call the getEmployer method to display employee data -->
-                    <!-- call the getEmployer method to display employee data -->
-                    <?php
-                    while ($row = mysqli_fetch_assoc($employer_list_tab)) {
-                        echo "<tr>
-                        <td id='supervisor-details'>" . "<i class='bx bxs-user-circle' ></i>"
-                            . $row['ojt_employee_name'] . "<br>" . "<i class='bx bx-phone'></i>"
-                            . $row['ojt_employee_phone'] . "<br>" . "<i class='bx bx-envelope'></i>"
-                            . $row['ojt_employee_email'] . "
-                </td>
-                <td id='ojt-employee-status'>
-                <p style='background-color: " . ($row['ojt_employee_status'] == "New Contact" ? "red" : "transparent") . ";'>" . $row['ojt_employee_status'] . "</p>
-                    <div class='dropdown'>
-                    <button class='btn btn-primary dropdown-toggle' id='btn-status' type='button' data-toggle='dropdown'>Edit Status
-                    <span class='caret'></span>
-                    </button>
-                    <ul class='dropdown-menu'>
-                    <li><a href='#'>Attempted Contact</a></li>
-                    <li><a href='#'>Contacted</a></li>
-                    <li><a href='#'>Appointment set</a></li>
-                    <li><a href='#'>Appointment met</a></li>
-                    </ul>
-                    </div>
-                </td>
-                <td id='ojt-employee-quick-actions'>" . "
-                    <div class='dropdown'>
-                        <button class='btn btn-primary dropdown-toggle' id='btn-qck' type='button' data-toggle='dropdown'>Quick Actions
-                        <span class='caret'></span>
-                        </button>
-                        <ul class='dropdown-menu'>
-                        <li><a href='#'>Add Note</a></li>
-                        <li><a href='#'>New Reminder</a></li>
-                        <li><a href='#'>Trash Contact</a></li>
-                        <li><a href='#'>Merge Contact</a></li>
-                        </ul>
-                    </div>
-                 " . "</td>
+                            " . "</td>
                             </tr>";
                     }
                     ?>
