@@ -28,7 +28,7 @@ function getEmployer($user_id){
 */
 function getEmployers($user_id){
     global $conn;
-    $sql = "SELECT ojt_employee_name,ojt_employee_status,ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address FROM ojt_employee WHERE ojt_teachers_id='$user_id'";
+    $sql = "SELECT ojt_employee_id,ojt_employee_name,ojt_employee_status,ojt_employee_supervisor, ojt_employee_phone, ojt_employee_email,ojt_employee_address FROM ojt_employee WHERE ojt_teachers_id='$user_id'";
     $result = mysqli_query($conn, $sql);
     if (!$result) {
         die("Query failed: " . mysqli_error($conn));
@@ -41,6 +41,14 @@ function getTeacherprofile($user_id){
     $result = mysqli_query($conn, $sql); 
     return $result->fetch_assoc();
 }
-
+function updateStatus($employee_id, $new_status){
+    global $conn;
+    $sql = "UPDATE ojt_employee SET ojt_employee_status='$new_status' WHERE ojt_employee_id='$employee_id'";
+    $result = mysqli_query($conn, $sql);
+    if (!$result) {
+        die("Query failed: " . mysqli_error($conn));
+    }
+    return $result;
+}
 
 ?>
